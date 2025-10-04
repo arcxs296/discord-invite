@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Accept cookies — Demo</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Giả banner cookie / Discord invite -->
+  <div class="cookie-banner" id="cookieBanner" role="dialog" aria-live="polite">
+    <div class="left">
+      <img src="https://cdn.jsdelivr.net/gh/encharm/Font-Awesome-SVG-PNG@master/black/png/64/brands/discord.png" alt="Discord-like" />
+    </div>
+    <div class="center">
+      <strong>Discord Invite</strong>
+      <p>We use cookies to improve your experience. Click Accept to continue.</p>
+    </div>
+    <div class="right">
+      <button id="acceptBtn" class="btn">Accept</button>
+      <button id="declineBtn" class="btn ghost">Decline</button>
+    </div>
+  </div>
+
+  <!-- Video jumpscare (ẩn) -->
+  <div id="jumpscareWrap" class="jumpscare-wrap" aria-hidden="true">
+    <video id="jumpscareVideo" playsinline webkit-playsinline preload="auto" poster="assets/jumpscare-poster.jpg">
+      <source src="assets/jumpscare.mp4" type="video/mp4">
+      <!-- fallback -->
+    </video>
+    <button id="closeBtn" class="close-btn" aria-label="Close">✕</button>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
