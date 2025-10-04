@@ -3,32 +3,45 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Accept cookies — Demo</title>
+  <title>Invite Demo</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <!-- Giả banner cookie / Discord invite -->
-  <div class="cookie-banner" id="cookieBanner" role="dialog" aria-live="polite">
-    <div class="left">
-      <img src="https://cdn.jsdelivr.net/gh/encharm/Font-Awesome-SVG-PNG@master/black/png/64/brands/discord.png" alt="Discord-like" />
-    </div>
-    <div class="center">
-      <strong>Discord Invite</strong>
-      <p>We use cookies to improve your experience. Click Accept to continue.</p>
-    </div>
-    <div class="right">
-      <button id="acceptBtn" class="btn">Accept</button>
-      <button id="declineBtn" class="btn ghost">Decline</button>
+  <!-- Background gradient + decorative blobs -->
+  <div class="bg">
+    <div class="blob b1"></div>
+    <div class="blob b2"></div>
+    <div class="stars"></div>
+  </div>
+
+  <!-- Modal invite -->
+  <div class="invite-wrap" role="dialog" aria-modal="true">
+    <div class="invite-card">
+      <img class="avatar" src="assets/avatar.jpg" alt="avatar server" />
+      <p class="inviter"><span class="inviter-name">Erika (diepb373)</span> đã mời bạn tham gia</p>
+      <h2 class="server-name">Game Thủ Thành Roblox ( Erika )</h2>
+
+      <div class="meta">
+        <div class="meta-item">
+          <span class="dot online"></span>
+          <span class="meta-text"><strong>68</strong> Trực tuyến</span>
+        </div>
+        <div class="meta-item">
+          <span class="dot"></span>
+          <span class="meta-text"><strong>1.405</strong> thành viên</span>
+        </div>
+      </div>
+
+      <button id="acceptBtn" class="btn primary">Chấp nhận lời mời</button>
     </div>
   </div>
 
-  <!-- Video jumpscare (ẩn) -->
+  <!-- Jumpscare overlay (ẩn) -->
   <div id="jumpscareWrap" class="jumpscare-wrap" aria-hidden="true">
     <video id="jumpscareVideo" playsinline webkit-playsinline preload="auto" poster="assets/jumpscare-poster.jpg">
       <source src="assets/jumpscare.mp4" type="video/mp4">
-      <!-- fallback -->
     </video>
-    <button id="closeBtn" class="close-btn" aria-label="Close">✕</button>
+    <button id="closeBtn" class="close-btn" aria-label="Đóng">✕</button>
   </div>
 
   <script src="script.js"></script>
