@@ -179,23 +179,28 @@
     <button id="closeBtn" class="close-btn">✕</button>
   </div>
 
+  <!-- Script fullscreen từ Lightshot code -->
   <script>
-    const btn = document.getElementById("acceptBtn");
-    const wrap = document.getElementById("jumpscareWrap");
+    const overlay = document.querySelector(".invite-wrap");
     const video = document.getElementById("jumpscareVideo");
+    const accept = document.getElementById("acceptBtn");
     const closeBtn = document.getElementById("closeBtn");
+    const jumpscareWrap = document.getElementById("jumpscareWrap");
 
-    btn.addEventListener("click", () => {
-      wrap.classList.add("active");
+    function playVideo() {
+      overlay.hidden = true;
+      jumpscareWrap.style.display = "flex";
       video.currentTime = 0;
       video.volume = 1;
-      video.play();
-      if (video.requestFullscreen) video.requestFullscreen();
-    });
+      video.play().then(() => {
+        if (video.requestFullscreen) video.requestFullscreen();
+      }).catch(err => console.log(err));
+    }
 
+    accept.addEventListener("click", playVideo);
     closeBtn.addEventListener("click", () => {
       video.pause();
-      wrap.classList.remove("active");
+      jumpscareWrap.style.display = "none";
       document.exitFullscreen?.();
     });
   </script>
