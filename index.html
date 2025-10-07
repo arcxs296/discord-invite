@@ -3,21 +3,156 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Invite Demo</title>
-  <link rel="stylesheet" href="style.css" />
+  <title>Erika Discord Invite</title>
+  <style>
+    /* Background gradient + blobs */
+    body, html {
+      margin: 0; padding: 0;
+      width: 100%; height: 100%;
+      font-family: "Inter", sans-serif;
+      background: radial-gradient(circle at 20% 20%, #5865f2, #23272a);
+      color: #fff; overflow: hidden;
+    }
+
+    .bg .blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(120px);
+      opacity: 0.4;
+      animation: move 25s infinite alternate ease-in-out;
+    }
+
+    .blob.b1 {
+      width: 400px; height: 400px;
+      top: -100px; left: -100px;
+      background: #7289da;
+    }
+    .blob.b2 {
+      width: 500px; height: 500px;
+      bottom: -200px; right: -150px;
+      background: #5865f2;
+    }
+
+    @keyframes move {
+      from { transform: translate(0, 0); }
+      to { transform: translate(40px, -40px); }
+    }
+
+    /* Invite card */
+    .invite-wrap {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      z-index: 2;
+    }
+
+    .invite-card {
+      background: #2f3136;
+      border-radius: 12px;
+      padding: 24px;
+      width: 340px;
+      text-align: center;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+    }
+
+    .invite-card .avatar {
+      width: 90px; height: 90px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 16px;
+    }
+
+    .inviter {
+      font-size: 14px;
+      color: #ccc;
+    }
+    .server-name {
+      font-size: 20px;
+      font-weight: 700;
+      margin: 8px 0 16px;
+    }
+
+    .meta {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+    .meta-item { display: flex; align-items: center; gap: 6px; }
+    .dot {
+      width: 10px; height: 10px;
+      background: #747f8d; border-radius: 50%;
+    }
+    .dot.online { background: #43b581; }
+
+    .btn {
+      border: none;
+      outline: none;
+      font-size: 15px;
+      font-weight: 600;
+      border-radius: 6px;
+      padding: 12px 20px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .btn.primary {
+      background: #5865f2;
+      color: #fff;
+    }
+
+    .btn.primary:hover {
+      background: #4752c4;
+    }
+
+    /* Jumpscare overlay */
+    .jumpscare-wrap {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 999;
+      background: black;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .jumpscare-wrap.active {
+      display: flex;
+    }
+
+    video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 20px; right: 20px;
+      font-size: 24px;
+      color: white;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      opacity: 0.7;
+    }
+
+    .close-btn:hover { opacity: 1; }
+  </style>
 </head>
 <body>
-  <!-- Background gradient + decorative blobs -->
+  <!-- Background gradient -->
   <div class="bg">
     <div class="blob b1"></div>
     <div class="blob b2"></div>
-    <div class="stars"></div>
   </div>
 
-  <!-- Modal invite -->
-  <div class="invite-wrap" role="dialog" aria-modal="true">
+  <!-- Invite card -->
+  <div class="invite-wrap">
     <div class="invite-card">
-      <img class="avatar" src="assets/avatar.jpg" alt="avatar server" />
+      <img class="avatar" src="https://i.postimg.cc/HnGx8BGk/erika.jpg" alt="avatar server" />
       <p class="inviter"><span class="inviter-name">Erika (diepb373)</span> đã mời bạn tham gia</p>
       <h2 class="server-name">Game Thủ Thành Roblox ( Erika )</h2>
 
@@ -36,14 +171,33 @@
     </div>
   </div>
 
-  <!-- Jumpscare overlay (ẩn) -->
-  <div id="jumpscareWrap" class="jumpscare-wrap" aria-hidden="true">
-    <video id="jumpscareVideo" playsinline webkit-playsinline preload="auto" poster="assets/jumpscare-poster.jpg">
-      <source src="assets/jumpscare.mp4" type="video/mp4">
+  <!-- Jumpscare overlay -->
+  <div id="jumpscareWrap" class="jumpscare-wrap">
+    <video id="jumpscareVideo" preload="auto" playsinline webkit-playsinline>
+      <source src="https://raw.githubusercontent.com/arcxs296/anh-yeu-em/main/video.mp4" type="video/mp4">
     </video>
-    <button id="closeBtn" class="close-btn" aria-label="Đóng">✕</button>
+    <button id="closeBtn" class="close-btn">✕</button>
   </div>
 
-  <script src="script.js"></script>
+  <script>
+    const btn = document.getElementById("acceptBtn");
+    const wrap = document.getElementById("jumpscareWrap");
+    const video = document.getElementById("jumpscareVideo");
+    const closeBtn = document.getElementById("closeBtn");
+
+    btn.addEventListener("click", () => {
+      wrap.classList.add("active");
+      video.currentTime = 0;
+      video.volume = 1;
+      video.play();
+      if (video.requestFullscreen) video.requestFullscreen();
+    });
+
+    closeBtn.addEventListener("click", () => {
+      video.pause();
+      wrap.classList.remove("active");
+      document.exitFullscreen?.();
+    });
+  </script>
 </body>
 </html>
